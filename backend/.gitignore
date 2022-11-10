@@ -1,4 +1,3 @@
-docker-compose.yaml
 node_modules
 storage/**
 src/documentation_source_tests/documentation/**
