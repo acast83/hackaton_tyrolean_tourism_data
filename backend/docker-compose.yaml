@@ -1,5 +1,18 @@
 services:
 
+  postgres_dev:
+
+    restart: always    
+    image: postgres
+
+    environment:
+      - POSTGRES_USER=hackaton
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=hackaton
+      
+    volumes:
+      - ./init.postgres.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres-data:/var/lib/postgresql/data
   v3:
 
     depends_on:
@@ -7,9 +20,9 @@ services:
 
     build:
       context: .
-      dockerfile: Dockerfile.v3  
+      dockerfile: Dockerfile.v3 
 
-    command: python /app/service.py 
+    command: sleep 9999 #python /app/service.py 
 
     environment: 
       - INSTALLATION=$INSTALLATION
@@ -24,13 +37,6 @@ services:
       - './storage:/tmp/storage'
       - '/var/log/$INSTALLATION:/tmp/$INSTALLATION/logs'
 
-      - './src/config/services.$INSTALLATION.yaml:/app/config/services.yaml'
-      - './src/config/db.$INSTALLATION.yaml:/app/config/db.yaml'
-      - './src/config/$INSTALLATION.cron.txt:/app/config/cron.txt'
-
-      - './src/environments/credentials.env:/app/environments/credentials.env'
-      - './src/environments/preferences.env:/app/environments/preferences.env'
-      - './src/environments/installation.env:/app/environments/installation.env'
      
      
     extra_hosts:
