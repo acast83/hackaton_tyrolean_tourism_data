@@ -31,9 +31,6 @@ services:
       - './src/environments/credentials.env:/app/environments/credentials.env'
       - './src/environments/preferences.env:/app/environments/preferences.env'
       - './src/environments/installation.env:/app/environments/installation.env'
-#      - './src/environments/credentials.$INSTALLATION.env:/app/environments/credentials.env'
-#      - './src/environments/preferences.$INSTALLATION.env:/app/environments/preferences.env'
-#      - './src/environments/installation.$INSTALLATION.env:/app/environments/installation.env'
      
      
     extra_hosts:
