@@ -1,5 +1,5 @@
-db() { PGPASSWORD=123 psql -U impresaone -h postgres_dev impresaone_$@; }
+db() { PGPASSWORD=123 psql -U hackaton -h postgres_dev hackaton_$@; }
 kt() { killall -9 tail; }
-t() { tail -f /var/log/impresaone/debugging.log /var/log/impresaone/workers.log /var/log/impresaone/impresaone.services.services.log & }
+t() { tail -f /var/log/hackaton/debugging.log /var/log/hackaton/workers.log /var/log/hackaton/hackaton.services.services.log & }
 
 order() { PYTHONPATH=/app /usr/local/bin/python /app/workers/order_fetch_info.py -c $@; }

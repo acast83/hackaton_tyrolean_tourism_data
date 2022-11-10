@@ -15,7 +15,7 @@ allowed_aerich_commands = (
 
 
 @click.command()
-@click.option('--command', '-c', type=click.Choice(['init-db', 'upgrade', 'migrate', 'reset', 'clean-and-reset', 'recreate-db'], case_sensitive=False))
+@click.option('--command', '-c', type=click.Choice(['init-db', 'upgrade', 'migrate', 'reset', 'clean-and-reset', 'recreate-db','aerich-init'], case_sensitive=False))
 @click.option('--services', '-s', multiple=True, default=None)
 @click.option('--installation', '-i', multiple=False, default=None)
 @click.option('--host', '-h', multiple=False, default=None)
@@ -77,6 +77,11 @@ def main(command: str, services: tuple = None, installation=None, host = None, u
             cmd = f'''PGPASSWORD={password} psql -h {host} -U {username} template1 -c "drop database if exists {pfx}_{app}" -c "create database {pfx}_{app}"'''
             os.system(cmd)
         
+        sys.exit()
+        
+    if command in ('aerich-init',):
+        cmd = 'aerich --app=aerich init-db'
+        os.system(cmd)
         sys.exit()
         
     if command in ('reset','clean-and-reset'):

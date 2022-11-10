@@ -171,11 +171,6 @@ services:
       sms2email:
         endpoint: igor@digitalcube.rs
 
-  notifications:
-    active: true
-    prefix: ${API_PREFIX}/notifications
-    port: 9104
-
 
 
   telegram:

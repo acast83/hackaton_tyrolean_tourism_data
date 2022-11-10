@@ -7,9 +7,6 @@ db:
 db_aerich: &db_aerich
   database: ${DB_AERICH}
 
-#db_template: &db_template
-#  database: ${DB_TEMPLATE}
-
 db_tenants: &db_tenants
   database: ${DB_TENANTS}
 
@@ -19,16 +16,14 @@ db_documents: &db_documents
 db_flows: &db_flows
   database: ${DB_FLOWS}
 
+db_telegram: &db_telegram
+  database: ${DB_TELEGRAM}
 
 db_sendmail: &db_sendmail
   database: ${DB_SENDMAIL}
 
 db_sms: &db_sms
   database: ${DB_SMS}
-
-db_notifications: &db_notifications
-  database: ${DB_NOTIFICATIONS}
-
 
 db_geoloc: &db_geoloc
   database: ${DB_GEOLOC}
@@ -47,10 +42,6 @@ tortoise:
       engine: 'tortoise.backends.asyncpg'
       credentials: *db_test
 
-    #    conn_template:
-    #      engine: 'tortoise.backends.asyncpg'
-    #      credentials: *db_template
-
     conn_aerich:
       engine: 'tortoise.backends.asyncpg'
       credentials: *db_aerich
@@ -63,6 +54,10 @@ tortoise:
       engine: 'tortoise.backends.asyncpg'
       credentials: *db_flows
 
+    conn_telegram:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_telegram
+
     conn_geoloc:
       engine: 'tortoise.backends.asyncpg'
       credentials: *db_geoloc
@@ -74,11 +69,6 @@ tortoise:
     conn_sms:
       engine: 'tortoise.backends.asyncpg'
       credentials: *db_sms
-
-
-    conn_notifications:
-      engine: 'tortoise.backends.asyncpg'
-      credentials: *db_notifications
 
     conn_documents:
       engine: 'tortoise.backends.asyncpg'
@@ -124,11 +114,6 @@ tortoise:
       models:
         - 'svc_sms.sms.models'
       default_connection: 'conn_sms'
-
-    notifications:
-      models:
-        - 'svc_notifications.notifications.models'
-      default_connection: 'conn_notifications'
 
     documents:
       models:
