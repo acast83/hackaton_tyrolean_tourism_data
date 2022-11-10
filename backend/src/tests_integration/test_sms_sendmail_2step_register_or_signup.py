@@ -34,7 +34,7 @@ class TestSMSWithTenants(SetupBaseAuthorizedTest):
         self.api(None, 'POST', f'/tenants/{self.id_tenant}/users/signup/step2/{signup_id}', {'value': pin},
                  expected_result_contain_keys={'token'})
 
-    def test_first_time_register_using_phonenumber(self):
+    def _test_first_time_register_using_phonenumber(self):
         self.api(None, 'POST', f'/tenants/{self.id_tenant}/users/signup', {'value': '+381 69 697 76 76'},
                  expected_result_subset={'required': 'pin'}, expected_result_contain_keys={'id'}
                  )
