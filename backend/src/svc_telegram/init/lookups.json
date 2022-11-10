@@ -1,0 +1,13 @@
+{
+  "message_sending_status": [
+    {
+      "code": "PENDING"
+    },
+    {
+      "code": "SENT"
+    },
+    {
+      "code": "FAILED"
+    }
+  ]
+}

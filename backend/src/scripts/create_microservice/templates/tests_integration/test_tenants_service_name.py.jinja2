@@ -1,0 +1,18 @@
+import os
+import dotenv
+from tshared.test import SetupBaseAuthorizedTest
+
+
+class Test{{ service_name_camel_case }}(SetupBaseAuthorizedTest):
+    def setUp(self):
+        self.api_modules = [
+            'svc_tenants.tenants.api',
+            'svc_{{ service_name }}.{{ service_name }}.api'
+        ]
+        super().setUp()
+
+    def test_about(self):
+        self.api(self.token, 'GET', '/tenants/about', expected_result_subset={"service": "tenants"})
+        self.api(self.token, 'GET', '/{{ service_name }}/about', expected_result_subset={"service": "{{ service_name }}"})
+
+    # {{ lookup_method }}{# TEMPLATE PLACEHOLDER. DO NOT DELETE #}

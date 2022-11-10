@@ -1,0 +1,75 @@
+services:
+  nginx:
+    image: nginx
+
+    volumes:
+      - ./docker-files/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8080:80
+
+    depends_on:
+      - v3
+
+    environment:
+      - NGINX_PORT=80
+      
+
+  redis:
+    image: redis:alpine
+    hostname: redis
+    command: redis-server
+    labels:
+      NAME: redis
+      
+
+  v3_workers:
+    build:
+      context: .
+      dockerfile: Dockerfile.v3_workers 
+    
+    depends_on:
+      - redis
+
+#    command: sleep 99999
+    command: /app/start_workers_inside_docker.sh
+
+    volumes:
+#      - './v3/src:/app'
+      - '/var/log/impresa/v3_workers:/app/logs'
+
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  v3:
+  
+    depends_on:
+      - redis
+
+    build:
+      context: .
+      dockerfile: Dockerfile.v3  
+
+#    command: sleep 99999
+    command: python /app/service.py
+
+    volumes:
+#      - './src:/app'
+      - '/var/log/impresa/v3_services:/app/logs'
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+
+#  test:
+#    build:
+#      context: v3/.
+#      dockerfile: Dockerfile.v3_workers 
+#    
+#    depends_on:
+#      - redis
+#
+#    volumes:
+#      - './v3/src:/app'     
+#      
+#    command: /app/start_test.sh

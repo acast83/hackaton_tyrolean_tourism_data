@@ -1,0 +1,13 @@
+class Lookup{{ service_name_camel_case }}{{ lookup_name_camel_case }}(Lookup):
+    name = '{{ service_name }}_{{ lookup_name }}'
+
+    mutable = False
+
+    fetch_method = ipc_{{ service_name }}.lookup_{{ service_name }}_{{ lookup_name }}
+    last_updated = None
+    indexes = ['code']
+    cache_by_id = {}
+    cache_by_index = {}
+
+    def __init__(self):
+        pass

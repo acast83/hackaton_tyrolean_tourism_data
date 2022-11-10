@@ -1,0 +1,20 @@
+
+    - multitenants
+    - multiservices
+    - multilanguage backend support
+    - multilanguage backend support for frontend
+    - api documentation / openapi
+    - timezones
+    - @route
+    - @api / (auth=True,... permissions, jwt)
+    - lookups / indexes []
+    - logging without printing
+    - x-api-key
+
+
+
+    thilo/work
+
+        - ticketing / dev-tickets / sprints
+
+

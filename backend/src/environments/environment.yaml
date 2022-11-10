@@ -1,0 +1,11 @@
+environment:
+  common:
+    - credentials.env
+    - installation.env
+    - db.env
+    - preferences.env
+  monolith: []
+  testing:
+    - tests.env
+  docker: []
+  microservices: []

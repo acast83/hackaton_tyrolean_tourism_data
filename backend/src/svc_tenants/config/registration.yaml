@@ -1,0 +1,85 @@
+username:
+  type: string
+  requirements:
+    required:
+      value: true
+      error: Username is required field
+    min_length:
+      value: 3
+      error: Minimal username length is {value}
+first_name:
+  type: string
+  requirements:
+    required:
+      value: false
+    min_length:
+      value: 2
+      error: Minimal first name length is {value}
+last_name:
+  type: string
+  requirements:
+    required:
+      value: false
+    min_length:
+      value: 2
+      error: Minimal last name length is {value}
+    regexp_validator:
+      value: "[a-c]+"
+      error: only allowed last name is a, ab, abc, abb, bac, cab, ccc
+email:
+  type: email
+  requirements:
+    required:
+      value: true
+      error: Email is required
+    regexp_validator:
+      type: email
+      value: ''
+      error: Email is not in valid form
+mobile_phone:
+  type: phonenumber
+  requirements:
+    required:
+      value: false
+    regexp_validator:
+      value: "[0-9]+"
+      error: Phone number is not in valid form
+password:
+  type: password
+  requirements:
+    type: password
+    required:
+      required: true
+      error: Password is required
+    min_length:
+      value: 3
+      error: Minimal password length is {value}
+    min_1upper_letter:
+      value: true
+      error: Password must contains minimum 1 uppercase letter
+    min_1lower_letter:
+      value: true
+      error: Password must contains minimum 1 lowercase letter
+    min_1number:
+      value: true
+    min_1one_char_of:
+      value: '-/?!@#$%^&*.;'
+      error: Password must contains minimum 1 spec character
+    mandatory_repeat:
+      value: true
+      error: Passwords not match
+    show_password_option:
+      value: true
+    cant_contains_username:
+      value: true
+
+captcha:
+  after_number_of_registrations: 3
+  type: string
+  url: /api/tenants/captcha
+  requirements:
+    required:
+      value: false
+      error: Invalid captcha code
+
+

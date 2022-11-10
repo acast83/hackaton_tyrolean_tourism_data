@@ -1,0 +1,153 @@
+db:
+  port: ${PG_PORT}
+  host: ${PG_HOST}
+  user: ${PG_USER}
+  password: ${PG_PASSWORD}
+
+db_aerich: &db_aerich
+  database: ${DB_AERICH}
+
+#db_template: &db_template
+#  database: ${DB_TEMPLATE}
+
+db_tenants: &db_tenants
+  database: ${DB_TENANTS}
+
+db_documents: &db_documents
+  database: ${DB_DOCUMENTS}
+
+db_flows: &db_flows
+  database: ${DB_FLOWS}
+
+
+db_sendmail: &db_sendmail
+  database: ${DB_SENDMAIL}
+
+db_sms: &db_sms
+  database: ${DB_SMS}
+
+db_notifications: &db_notifications
+  database: ${DB_NOTIFICATIONS}
+
+
+db_geoloc: &db_geoloc
+  database: ${DB_GEOLOC}
+
+db_test: &db_test
+  database: ${DB_TEST}
+db_files: &db_files
+  database: ${DB_FILES}
+
+# {{ db_env }}{# TEMPLATE PLACEHOLDER. DO NOT DELETE #}
+
+tortoise:
+  connections:
+
+    conn_test:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_test
+
+    #    conn_template:
+    #      engine: 'tortoise.backends.asyncpg'
+    #      credentials: *db_template
+
+    conn_aerich:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_aerich
+
+    conn_tenants:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_tenants
+
+    conn_flows:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_flows
+
+    conn_geoloc:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_geoloc
+
+    conn_sendmail:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_sendmail
+
+    conn_sms:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_sms
+
+
+    conn_notifications:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_notifications
+
+    conn_documents:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_documents
+
+
+    conn_files:
+      engine: 'tortoise.backends.asyncpg'
+      credentials: *db_files
+
+
+    # {{ db_connection }}{# TEMPLATE PLACEHOLDER. DO NOT DELETE #}
+
+  apps:
+
+    aerich:
+      models:
+        - 'aerich.models'
+      default_connection: 'conn_aerich'
+
+
+    flows:
+      models:
+        - 'svc_flows.flows.models'
+      default_connection: 'conn_flows'
+
+    tenants:
+      models:
+        - 'svc_tenants.tenants.models'
+      default_connection: 'conn_tenants'
+
+    geoloc:
+      models:
+        - 'svc_geoloc.geoloc.models'
+      default_connection: 'conn_geoloc'
+
+    sendmail:
+      models:
+        - 'svc_sendmail.sendmail.models'
+      default_connection: 'conn_sendmail'
+
+    sms:
+      models:
+        - 'svc_sms.sms.models'
+      default_connection: 'conn_sms'
+
+    notifications:
+      models:
+        - 'svc_notifications.notifications.models'
+      default_connection: 'conn_notifications'
+
+    documents:
+      models:
+        - 'svc_documents.documents.models'
+      default_connection: 'conn_documents'
+
+
+    telegram:
+      models:
+        - 'svc_telegram.telegram.models'
+      default_connection: 'conn_telegram'
+
+    files:
+      models:
+        - 'svc_files.files.models'
+      default_connection: 'conn_files'
+    
+
+    # {{ db_models }}{# TEMPLATE PLACEHOLDER. DO NOT DELETE #}
+
+  use_tz: true
+  timezone: 'CET'

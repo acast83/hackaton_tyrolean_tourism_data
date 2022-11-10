@@ -1,0 +1,3 @@
+{{ relation }} = fields.ForeignKeyField('{{ service_name }}.Lookup{{ service_name_camel_case }}{{ parent_lookup }}', null=True, index=True, related_name='{{ lookup }}')
+
+ status_type   = fields.ForeignKeyField('      tickets     .Lookup             Ticket               StatusType'    , null=True, index=True, related_name=  'statuses')

@@ -1,0 +1,15 @@
+class Lookup{{ lookup_name_camel_case }}(Model, base_models.BaseModelLookup):
+    class Meta:
+        table = "{{ service_name }}_lookups_{{ lookup_name }}"
+        unique_together = (('id_tenant', 'code'),)
+        app = '{{ service_name }}'
+    {{ parent }}
+
+class TranslationLookup{{ lookup_name_camel_case }}(Model):
+    class Meta:
+        table = "{{ service_name }}_translation_lookups_{{ lookup_name }}"
+        app = '{{ service_name }}'
+
+    lookup = fields.ForeignKeyField('{{ service_name }}.Lookup{{ lookup_name_camel_case }}', null=False, index=True, related_name='translations')
+    language = fields.CharField(max_length=32, null=False)
+    value = fields.TextField(null=False)

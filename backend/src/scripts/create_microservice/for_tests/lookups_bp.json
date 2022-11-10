@@ -1,0 +1,92 @@
+{
+  "educational_titles": [
+    {
+      "id": "5ed3aec6-08f4-4852-be64-83194e1b961a",
+      "code": "EDU_TITLE_DR",
+      "order": 1,
+      "translations": {
+        "en": "Doctor",
+        "sr": "Doktor",
+        "it": "Dottore",
+        "de": "Doktor"
+      }
+    },
+    {
+      "id": "a2e41a3e-ce6a-464e-8796-9a06119ff7ce",
+      "code": "EDU_TITLE_MR",
+      "order": 1,
+      "translations": {
+        "en": "Master",
+        "sr": "Magistar",
+        "it": "Maestro",
+        "de": "Meister"
+      }
+    }
+  ],
+  "company_types": [
+    {
+      "id": "da775766-f9c9-40a6-9048-5f9e0ce42706",
+      "code": "CTYPE_LIMITED",
+      "translations": {
+        "en": "LTD",
+        "sr": "DOO",
+        "it": "SLR",
+        "de": "GMBH"
+      }
+    }
+  ],
+  "contact_categories": [
+    {
+      "id": "50062128-3c79-4feb-98c0-563e0ae1e32d",
+      "code": "CCAT_BUSINESS",
+      "translations": {
+        "en": "Business",
+        "sr": "Poslovni",
+        "it": "Lavoro",
+        "de": "Geschäft"
+      }
+    },
+    {
+      "id": "23c60f03-5363-4aa2-a4bb-d7ade239c8d7",
+      "code": "CCAT_PRIVATE",
+      "translations": {
+        "en": "Private",
+        "sr": "Privatan",
+        "it": "Privato",
+        "de": "Privatgelände"
+      }
+    }
+  ],
+  "phone_types": [
+    {
+      "id": "50062128-3c79-4feb-98c0-563e0ae1e32d",
+      "code": "PHONETYPE_LANDLINE",
+      "translations": {
+        "en": "Landline phone",
+        "sr": "Fiksni telefon",
+        "it": "Telefono fisso",
+        "de": "Festnetztelefon"
+      }
+    },
+    {
+      "id": "487e4163-208d-41a1-8cfc-c0ebd9a30407",
+      "code": "PHONETYPE_MOBILE",
+      "translations": {
+        "en": "Mobile phone",
+        "sr": "Mobilni telefon",
+        "it": "Cellulare",
+        "de": "Handy"
+      }
+    },
+    {
+      "id": "683fb516-190e-409f-8fec-c2aed62b3e7d",
+      "code": "PHONETYPE_SATELITE",
+      "translations": {
+        "en": "Satelite phone",
+        "sr": "Satelitski telefon",
+        "it": "Telefono satellitare",
+        "de": "Satellitentelefon"
+      }
+    }
+  ]
+}

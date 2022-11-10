@@ -1,0 +1,7 @@
+def initialize_lookups_svc_{{ service_name }}(self):
+    with open(current_file_folder + '/../../svc_{{ service_name }}/init/lookups.json', 'rt') as f:
+        lookups = json.load(f)
+
+    self.api(self.token, 'POST', '/{{ service_name }}/lookups/init', body={'lookups': lookups}, expected_code=None)
+
+    {{ lookup }}

@@ -1,0 +1,2 @@
+async def lookup_{{ service_name }}_{{ lookup_name }}(request, last_updated: datetime.datetime = None):
+    return await ipc.lookup_base(request, '{{ service_name }}', '/lookups/{{ lookup_name }}', last_updated)

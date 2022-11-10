@@ -1,0 +1,6 @@
+def test_lookup_all_lookups(self):
+    result = self.api(self.token, 'GET', '/{{ service_name }}/lookups', expected_code=200)
+    expected_result = {
+                       # {{ lookup_name }}
+                       }
+    self.assertEqual(first=set(result), second=expected_result)

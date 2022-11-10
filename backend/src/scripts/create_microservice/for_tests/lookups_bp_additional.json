@@ -1,0 +1,26 @@
+{
+  "first_new_lookup": [
+    {
+      "id": "da775766-f9c9-40a6-9048-5f9e0ce42706",
+      "code": "CTYPE_LIMITED",
+      "translations": {
+        "en": "LTD",
+        "sr": "DOO",
+        "it": "SLR",
+        "de": "GMBH"
+      }
+    }
+  ],
+  "second_new_lookup": [
+    {
+      "id": "da775766-f9c9-40a6-9048-5f9e0ce42706",
+      "code": "CTYPE_LIMITED",
+      "translations": {
+        "en": "LTD",
+        "sr": "DOO",
+        "it": "SLR",
+        "de": "GMBH"
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+swagger: "2.0"
+info:
+  title: "Tenants web service"
+  description: "Describes API calls in tenants web service, users, logging, permissions, ..."
+  version: "1.0.0"
+  contact:
+    email: "info@digitalcube.rs"
+  license:
+    name: "GPL"
+    url: "https://en.wikipedia.org/wiki/GNU_General_Public_License"
+host: "labs.digitalcube.dev"
+basePath: "/api"
+
+tags:
+  - name: "tenants"
+    description: "About all tenants on the system"
+
+
+schemes:
+  - "https"
+  - "http"
+
+paths:
+  /pet:
+    post:
+      tags:
+      - "pet"
+      summary: "Add a new pet to the store"
+      description: ""
+      operationId: "addPet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Pet"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"

@@ -1,0 +1,201 @@
+application:
+  name: hackaton
+  port: ${MONOLITH_APP_PORT}
+  base_url: ${APP_BASEURL}
+  prefix: ${API_PREFIX}
+
+  docker_host: v3
+
+  reset_password:
+    from:
+      display_name: DC Labs
+      email: dont-reply@labs.digitalcube.dev
+logging:
+  version: 1
+  disable_existing_loggers: false
+  formatters:
+    default:
+      format: "%(asctime)s - %(name)-20s - %(levelname)-8s - %(message)s"
+    services:
+      format: "%(asctime)s - %(name)-20s - %(levelname)-8s - %(message)s%(note)s"
+  handlers:
+    console_root:
+      class: logging.StreamHandler
+      formatter: default
+      filters: [ colored_output ]
+      level: CRITICAL
+    file_root:
+      #      class: logging.FileHandler
+      class: logging.handlers.RotatingFileHandler
+      maxBytes: 1073741824
+      backupCount: 3
+      filename: /tmp/hackaton/logs/root.log
+      formatter: default
+      level: CRITICAL
+    console_services:
+      class: logging.StreamHandler
+      formatter: services
+      filters: [ colored_output ]
+      level: CRITICAL
+    file_workers:
+      class: logging.handlers.RotatingFileHandler
+      maxBytes: 1073741824
+      backupCount: 3
+      filename: /tmp/hackaton/logs/workers.log
+      formatter: default
+      filters: [ colored_output ]
+      level: CRITICAL
+    file_services:
+      class: logging.handlers.RotatingFileHandler
+      maxBytes: 1073741824
+      backupCount: 3
+      filename: /tmp/hackaton/logs/services.log
+      formatter: services
+      filters: [ colored_output ]
+      level: CRITICAL
+    file_debugging:
+      class: logging.handlers.RotatingFileHandler
+      maxBytes: 1073741824
+      backupCount: 3
+      filename: /tmp/hackaton/logs/debugging.log
+      formatter: default
+      filters: [ colored_output ]
+      level: CRITICAL
+    file_sync:
+      class: logging.handlers.RotatingFileHandler
+      maxBytes: 1073741824
+      backupCount: 3
+      filename: /tmp/hackaton/logs/sync.log
+      formatter: default
+      filters: [ colored_output ]
+      level: CRITICAL
+    FILE_SERVICE_TEMPLATE:
+      class: logging.handlers.RotatingFileHandler
+      maxBytes: 1073741824
+      backupCount: 3
+      filename: /tmp/hackaton/logs/service_name.log
+      formatter: services
+      filters: [ colored_output ]
+      level: INFO
+  filters:
+    colored_output:
+      (): tshared.utils.setup_logger.CustomFilter
+  loggers:
+    SERVICE_TEMPLATE:
+      handlers: [ console_services, file_services ]
+      level: INFO
+      propagate: true
+    services:
+      handlers: [ console_services, file_services ]
+      level: CRITICAL
+      propagate: false
+    workers:
+      handlers: [ ] #[ console_root, file_workers ]
+      level: CRITICAL
+      propagate: false
+    sync:
+      handlers: [ file_sync ]
+      level: CRITICAL
+      propagate: false
+    debugging:
+      handlers: [ ] # [ console_root, file_debugging ]
+      level: CRITICAL
+      propagate: false
+  root:
+    level: CRITICAL
+    handlers: [ console_root, file_root ]
+
+credentials:
+
+
+
+workers:
+
+  telegram-message-sender:
+    command: python workers/telegram_send_message.py
+    scale: 1
+    queue: telegram_send_message
+
+services:
+
+  tenants:
+    active: true
+    prefix: ${API_PREFIX}/tenants
+    port: 9100
+
+  documents:
+    active: true
+    prefix: ${API_PREFIX}/documents
+    port: 9101
+    storage: ${STORAGE_FOLDER}
+
+  flows:
+    active: true
+    prefix: ${API_PREFIX}/flows
+    port: 9102
+
+  sendmail:
+    active: true
+    prefix: ${API_PREFIX}/sendmail
+    port: 9103
+
+    profiles:
+
+      sendinblue_smtp:
+
+        smtp_relay: smtp-relay.sendinblue.com
+        smtp_port: 587
+        username: igor@digitalcube.rs
+        password: TvNDd20yMpIbXfzh
+        authenticated: true
+
+  sms:
+    active: true
+    prefix: ${API_PREFIX}/sms
+    port: 9104
+
+    default_profile: sms2email # smsapi
+
+    profiles:
+      smsapi:
+        default_sender: ${SMS_DEFAULT_SENDER}
+        endpoint: https:/${API_PREFIX}.smsapi.com/sms.do
+        api_key: ${SMS_TOKEN}
+
+      anysms:
+        endpoint: https://www.any-sms.biz/gateway/send_sms.php
+        uid: 200992
+        password: 3xwqxuj1
+        gateway: 20
+
+      sms2email:
+        endpoint: igor@digitalcube.rs
+
+  notifications:
+    active: true
+    prefix: ${API_PREFIX}/notifications
+    port: 9104
+
+
+
+  telegram:
+    active: true
+    prefix: ${API_PREFIX}/telegram
+    port: 9127
+
+
+  files:
+    active: true
+    prefix: ${API_PREFIX}/files
+    port: 9131
+
+
+
+  geoloc:
+    active: true
+    prefix: ${API_PREFIX}/geoloc
+    port: 9136
+
+  
+  
+  # {{ new_service }}{# TEMPLATE PLACEHOLDER. DO NOT DELETE #}

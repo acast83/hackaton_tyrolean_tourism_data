@@ -1,0 +1,31 @@
+templates_dir: 'templates'
+services_location: '../..'
+directories:
+  db_yaml:
+    template: 'db'
+    target: 'config/db.yaml'
+  services_yaml:
+    template: 'services'
+    target: 'config/services.yaml'
+  env:
+    template: 'env_'
+    target: 'environments/db.env'
+
+  ipc:
+    template: 'ipc'
+    target: 'tshared_src/tshared/ipc/SERVICE_NAME.py'
+  cache:
+    template: 'cache'
+    target: 'tshared_src/tshared/lookups/cache.py'
+  models_lookups:
+    template: 'models_lookup'
+    target: 'svc_SERVICE_NAME/SERVICE_NAME/models/lookups.py'
+  api_lookups:
+    template: 'api_lookups'
+    target: 'svc_SERVICE_NAME/SERVICE_NAME/api/lookups.py'
+  test_integration:
+    template: 'tests_integration'
+    target: 'tests_integration/test_SERVICE_NAME.py'
+  shared_test:
+    template: 'shared_test'
+    target: 'tshared_src/tshared/test.py'

@@ -1,0 +1,1 @@
+self.lookup_{{ service_name }}_{{ lookup_name }} = self.api(self.token, 'GET', '/{{ service_name }}/lookups/{{ lookup_name }}?index_by=code')['items']

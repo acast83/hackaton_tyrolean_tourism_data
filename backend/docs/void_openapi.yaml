@@ -1,0 +1,334 @@
+openapi: 3.0.3
+info:
+  title: DCLabs API
+  description: DCLabs API
+  version: 1.0.0
+
+servers:
+  - url: https://labs.digitalcube.dev/api
+    description: Test Server
+
+components:
+  schemas:
+    Tenant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          
+  securitySchemes:
+    token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+    BasicAuth:
+      type: http
+      scheme: basic
+
+security:
+  - token: []
+
+paths:
+
+  /tenants/code/{tenant_code}:
+
+    parameters:
+    - name: tenant_code
+      in: path
+      required: true
+      description: tenant code
+      schema:
+        type: string
+
+    get:
+      summary: Returns id of tenant
+      description: Returns id of tenant
+      responses:
+        '200':
+          description: A JSON array of tenant names in id
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+        '404':
+          description: Tenant not found
+                  
+  /tenants:
+    get:
+      summary: Returns a list of tenants.
+      description: Returns a list of tenants.
+      responses:
+        '200':
+          description: A JSON array of tenant names in id
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+                  
+    
+    post:
+      summary: Create a new tenant
+      description: Create a new tenant
+      requestBody:
+        description: Tenant Payload
+        content: 
+          'application/json':
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: digital cube
+
+      responses:
+        '401':
+          description: Unauthorized
+        '200':
+          description: A JSON array of tenant names in id
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+                  
+  /tenants/{tenant_id}:
+    parameters:
+    - name: tenant_id
+      in: path
+      required: true
+      description: tenant Id
+      schema:
+        type: string
+        format: uuid
+        example: 'b14b84f0-3496-4320-b7ac-d9906c28f90b'
+
+    get:
+      summary: Returns a tenant details
+      description: Returns a tenant details
+      responses:
+        '200':
+          description: A JSON array of tenant names in id
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    
+        '404':
+          description: Tenant not found
+
+  /tenants/{tenant_id}/users:
+    parameters:
+    - name: tenant_id
+      in: path
+      required: true
+      description: tenant Id
+      schema:
+        type: string
+        format: uuid
+
+    get:
+      summary: Returns a tenant details
+      description: Returns a tenant details
+      responses:
+        '200':
+          description: A JSON array of tenant names in id
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+        '404':
+          description: Tenant not found
+
+  /tenants/{tenant_id}/signup:
+    parameters:
+    - name: tenant_id
+      in: path
+      required: true
+      description: tenant Id
+      schema:
+        type: string
+        format: uuid
+
+    post:
+      summary: step1 signup
+      description: Returns a tenant details
+      responses:
+        '200':
+          description: instructions for next step
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  required:
+                    type: string
+                    enum: [pin, password]
+                    
+        '404':
+          description: Tenant not found
+
+  /tenants/{tenant_id}/signup/step2/{signup_id}:
+    parameters:
+    - name: tenant_id
+      in: path
+      required: true
+      description: tenant Id
+      schema:
+        type: string
+        format: uuid
+    - name: signup_id
+      in: path
+      required: true
+      description: signup Id
+      schema:
+        type: string
+        format: uuid
+
+    post:
+      summary: step2 signup
+      description: Signup user
+      requestBody:
+        description: Tenant Payload
+        content: 
+          'application/json':
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                  example: 2408
+
+      responses:
+        '200':
+          description: instructions for next step
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  required:
+                    type: string
+                    enum: [pin, password]
+                    
+        '404':
+          description: Tenant not found
+
+  /tenants/{tenant_id}/users/register:
+    parameters:
+    - name: tenant_id
+      in: path
+      required: true
+      description: tenant Id
+      schema:
+        type: string
+        format: uuid
+
+    post:
+      summary: Register user
+      description: Authorized registration
+      requestBody:
+        description: Register user payload
+        content: 
+          'application/json':
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: john.doe
+                password:
+                  type: string
+                  example: topsecret
+                first_name:
+                  type: string
+                  example: John
+                last_name:
+                  type: string
+                  example: Doe
+                email:
+                  type: string
+                  example: john.doe@example.com
+                mobile_phone:
+                  type: string
+                  example: +1 23 456 789
+                ttl:
+                  type: integer
+                  format: int16
+                  example: 300
+
+      responses:
+        '200':
+          description: instructions for next step
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+
+        '404':
+          description: Tenant not found
+
+  /tenants/{tenant_id}/users/forgot-password:
+    parameters:
+    - name: tenant_id
+      in: path
+      required: true
+      description: tenant Id
+      schema:
+        type: string
+        format: uuid
+
+    post:
+      summary: Forgot password request
+      description: unauthorized forgot password request
+      requestBody:
+        content: 
+          'application/json':
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: john.doe
+                expire_in:
+                  type: integer
+                  format: int16
+                  example: 300
+
+      responses:
+        '200':
+          description: instructions for next step
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+
+        '404':
+          description: Tenant not found
+          

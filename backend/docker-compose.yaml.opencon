@@ -1,0 +1,65 @@
+services:
+
+  v3:
+
+    depends_on:
+      - redis
+
+    build:
+      context: .
+      dockerfile: Dockerfile.v3  
+
+    command: python /app/service.py 
+
+    environment: 
+      - INSTALLATION=$INSTALLATION
+      - SERVER_ENVIRONMENT=$SERVERSUBDOMAIN
+      - MONOLITH_APP_PORT=80
+      - API_PREFIX=/api/v3
+      - REDIS_HOST=redis
+
+    volumes:
+      - './src:/app'      
+      - './docs:/app/docs'
+      - './storage:/tmp/storage'
+      - '/var/log/$INSTALLATION:/tmp/$INSTALLATION/logs'
+
+      - './src/config/services.$INSTALLATION.yaml:/app/config/services.yaml'
+      - './src/config/db.$INSTALLATION.yaml:/app/config/db.yaml'
+      - './src/config/$INSTALLATION.cron.txt:/app/config/cron.txt'
+
+      - './src/environments/credentials.env:/app/environments/credentials.env'
+      - './src/environments/preferences.env:/app/environments/preferences.env'
+      - './src/environments/installation.env:/app/environments/installation.env'
+#      - './src/environments/credentials.$INSTALLATION.env:/app/environments/credentials.env'
+#      - './src/environments/preferences.$INSTALLATION.env:/app/environments/preferences.env'
+#      - './src/environments/installation.$INSTALLATION.env:/app/environments/installation.env'
+     
+     
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+
+  nginx:
+    image: nginx
+
+    volumes:
+      - ./nginx/nginx.$INSTALLATION.conf:/etc/nginx/conf.d/default.conf
+
+    ports:
+      - 8080:80
+
+    depends_on:
+      - v3
+
+    environment:
+      - NGINX_PORT=80
+      
+      
+  redis:
+    image: redis:alpine
+    hostname: redis
+    command: redis-server
+    labels:
+      NAME: redis
+
