@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile.v3 
 
-    command: sleep 9999 #python /app/service.py 
+    command: python /app/service.py 
 
     environment: 
       - INSTALLATION=$INSTALLATION

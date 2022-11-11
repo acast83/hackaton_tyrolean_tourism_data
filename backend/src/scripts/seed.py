@@ -215,16 +215,13 @@ async def seed_lookups(svcs):
 
 @click.command()
 @click.option('--installation', '-i', multiple=False, default=None)
-@click.option('--command', '-c', multiple=False, default=None, type=click.Choice(['sim', 'sim-service', 'lookups', 'init', 'options', 'sfs', 'sfs-lecturers']))
+@click.option('--command', '-c', multiple=False, default=None, type=click.Choice(['lookups', 'init', 'options']))
 @click.option('--service', '-s', multiple=True, default=None)
 @click.option('--sim-file', '-f', multiple=False, default=None)
 @click.option('--sim-nr-cards', '-n', type=int, multiple=False, default=None)
 async def seed(command, service: tuple = None, port: int = None, installation=None, sim_file=None, sim_nr_cards=None):
-    _installation = f'.{installation}' if installation else ''
-    file = current_file_folder + f'/../environments/environment{_installation}.yaml'
 
-    # file = current_file_folder + '/../environments/environment.local.yaml'
-    # file = current_file_folder + '/../environments/environment.yaml'
+    file = current_file_folder + f'/../environments/environment.yaml'
 
     load_env_variables(from_config_file=file, config_file_sections=['monolith'])
 
@@ -232,16 +229,11 @@ async def seed(command, service: tuple = None, port: int = None, installation=No
 
     await cfg(installation)
 
-    #    return
-
-
     tenant = os.getenv('INSTALLATION', None)
     if not tenant:
         sys.exit('TENANT not defined in env')
 
     force_id=None
-    if tenant.upper()=='ENEGAN':
-        force_id='74fbb3f7-01f8-47f4-b7b3-c32a541729a6'
 
     id_tenant, token = await get_tenant_and_token(code=tenant.upper(), force_id=force_id)
     print(id_tenant)

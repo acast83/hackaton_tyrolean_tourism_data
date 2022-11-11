@@ -45,7 +45,7 @@ def start_up_workers(wconfig: dict) -> list[Popen]:     # noqa
 if __name__ == "__main__":
 
     os.system('/usr/sbin/service cron start')
-    os.system('/usr/bin/crontab /app/config/cron.txt')
+    os.system('/usr/bin/crontab /app/config/cron.txt > /dev/null')
     os.system('rm -rf /var/log/impresaone && ln  -sf /tmp/impresaone/logs /var/log/impresaone')
 
     config = load_config(current_file_folder + '/config', ['services.yaml'])
