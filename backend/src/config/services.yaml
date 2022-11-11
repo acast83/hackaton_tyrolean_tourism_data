@@ -149,21 +149,14 @@ services:
         password: TvNDd20yMpIbXfzh
         authenticated: true
 
-
   telegram:
     active: true
     prefix: ${API_PREFIX}/telegram
     port: 9127
-
 
   files:
     active: true
     prefix: ${API_PREFIX}/files
     port: 9131
 
-
-
-
-  
-  
   # {{ new_service }}{# TEMPLATE PLACEHOLDER. DO NOT DELETE #}

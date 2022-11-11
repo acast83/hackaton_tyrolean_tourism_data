@@ -194,7 +194,6 @@ class HandlerSendDocument(base3.handlers.Base):
             attachments.append(f'/tmp/{f}')
 
         c = config['profiles']['sendinblue_smtp']
-        c = config['profiles']['sendgrid_telmekom_smtp']
 
         for email in emails:
 

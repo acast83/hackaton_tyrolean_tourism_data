@@ -1,4 +1,4 @@
-pip install --upgrade pip
+wpip install --upgrade pip
 
 pip install pycurl --global-option="--with-openssl"
 

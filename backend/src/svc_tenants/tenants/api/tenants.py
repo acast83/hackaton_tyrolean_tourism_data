@@ -140,15 +140,6 @@ async def create_user(handler, force_tenant=None):
     except Exception as e:
         raise
 
-    if 'role_id' in body:
-        lookup_roles = await lookups.LookupUserRoles.create(handler=handler, force_key_value=['code', 'id'])
-        if body['role_id'] in (lookup_roles['LECTURER'], lookup_roles['ATTENDEE']):
-            try:
-                import tshared.ipc.conferences as ipc_conferences
-                await ipc_conferences.initialize_coupons(handler.request, 'sfscon-2022', user.id)
-            except Exception as e:
-                pass
-
     return res, http.status.CREATED
 
 
@@ -1097,7 +1088,6 @@ class TenantsRegisterSignUpStep2(base3.handlers.Base):
 
             try:
                 import tshared.ipc.conferences as ipc_conferences
-                await ipc_conferences.initialize_coupons(self.request, 'sfscon-2022')
             except Exception as e:
                 pass
 

@@ -33,7 +33,6 @@ services:
 
     volumes:
       - './src:/app'      
-      - './docs:/app/docs'
       - './storage:/tmp/storage'
       - '/var/log/$INSTALLATION:/tmp/$INSTALLATION/logs'
 
