@@ -149,29 +149,6 @@ services:
         password: TvNDd20yMpIbXfzh
         authenticated: true
 
-  sms:
-    active: true
-    prefix: ${API_PREFIX}/sms
-    port: 9104
-
-    default_profile: sms2email # smsapi
-
-    profiles:
-      smsapi:
-        default_sender: ${SMS_DEFAULT_SENDER}
-        endpoint: https:/${API_PREFIX}.smsapi.com/sms.do
-        api_key: ${SMS_TOKEN}
-
-      anysms:
-        endpoint: https://www.any-sms.biz/gateway/send_sms.php
-        uid: 200992
-        password: 3xwqxuj1
-        gateway: 20
-
-      sms2email:
-        endpoint: igor@digitalcube.rs
-
-
 
   telegram:
     active: true
@@ -186,10 +163,6 @@ services:
 
 
 
-  geoloc:
-    active: true
-    prefix: ${API_PREFIX}/geoloc
-    port: 9136
 
   
   

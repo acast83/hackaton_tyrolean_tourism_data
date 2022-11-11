@@ -213,7 +213,7 @@ class SetupBaseAuthorizedTest(SetUpTest):
         tenant_name = getattr(self, 'tenant_name') if hasattr(self, 'tenant_name') else 'dcube'
 
         try:
-            with open(current_file_folder + f'/../../svc_{svc}/init/lookups.{tenant_name}.json', 'rt') as f:
+            with open(current_file_folder + f'/../../svc_{svc}/init/lookups.json', 'rt') as f:
                 self.api(self.token, 'POST', f'/{svc}/lookups/init', body={'lookups': json.load(f)})
         except Exception as e:
             try:
@@ -442,40 +442,39 @@ class SetupBaseAuthorizedTest(SetUpTest):
         api_modules = [a.split('.')[1] for a in self.api_modules]
         if 'tenants' in api_modules:
             self.initialize_lookups_svc_tenants()
-        if 'bp' in api_modules:
-            self.initialize_lookups_svc_bp()
+
         if 'flows' in api_modules:
             self.initialize_lookups_svc_flows()
-        if 'tickets' in api_modules:
-            self.initialize_lookups_svc_tickets()
-        if 'wiki' in api_modules:
-            self.initialize_lookups_svc_wiki()
-        if 'contacts' in api_modules:
-            self.initialize_lookups_svc_contacts()
-        if 'sla' in api_modules:
-            self.initialize_lookups_svc_sla()
-        if 'open_messenger' in api_modules:
-            self.initialize_lookups_svc_open_messenger()
-        if 'pdfgen' in api_modules:
-            self.initialize_lookups_svc_pdfgen()
-        if 'services' in api_modules:
-            self.initialize_lookups_svc_services()
-        if 'pdf_generator' in api_modules:
-            self.initialize_lookups_svc_pdf_generator()
-        if 'wallet' in api_modules:
-            self.initialize_lookups_svc_wallet()
-        if 'kanban' in api_modules:
-            self.initialize_lookups_svc_kanban()
-        if 'deals' in api_modules:
-            self.initialize_lookups_svc_deals()
-        if 'messenger' in api_modules:
-            self.initialize_lookups_svc_messenger()
-        if 'olo' in api_modules:
-            self.initialize_lookups_svc_olo()
-        if 'conferences' in api_modules:
-            self.initialize_lookups_svc_conferences()
-        if 'telegram' in api_modules:
-            self.initialize_lookups_svc_telegram()
+        # if 'tickets' in api_modules:
+        #     self.initialize_lookups_svc_tickets()
+        # if 'wiki' in api_modules:
+        #     self.initialize_lookups_svc_wiki()
+        # if 'contacts' in api_modules:
+        #     self.initialize_lookups_svc_contacts()
+        # if 'sla' in api_modules:
+        #     self.initialize_lookups_svc_sla()
+        # if 'open_messenger' in api_modules:
+        #     self.initialize_lookups_svc_open_messenger()
+        # if 'pdfgen' in api_modules:
+        #     self.initialize_lookups_svc_pdfgen()
+        # if 'services' in api_modules:
+        #     self.initialize_lookups_svc_services()
+        # if 'pdf_generator' in api_modules:
+        #     self.initialize_lookups_svc_pdf_generator()
+        # if 'wallet' in api_modules:
+        #     self.initialize_lookups_svc_wallet()
+        # if 'kanban' in api_modules:
+        #     self.initialize_lookups_svc_kanban()
+        # if 'deals' in api_modules:
+        #     self.initialize_lookups_svc_deals()
+        # if 'messenger' in api_modules:
+        #     self.initialize_lookups_svc_messenger()
+        # if 'olo' in api_modules:
+        #     self.initialize_lookups_svc_olo()
+        # if 'conferences' in api_modules:
+        #     self.initialize_lookups_svc_conferences()
+        # if 'telegram' in api_modules:
+        #     self.initialize_lookups_svc_telegram()
         # {{ function_call }}{# TEMPLATE PLACEHOLDER. DO NOT DELETE #}
 
     def setUp(self, tenant_code=None):

@@ -1,3 +1,0 @@
-https://github.com/stefangabos/world_countries
-
-countries.csv : https://wiki.openstreetmap.org/wiki/Nominatim/Country_Codes

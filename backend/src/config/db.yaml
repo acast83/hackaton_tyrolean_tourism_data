@@ -22,11 +22,9 @@ db_telegram: &db_telegram
 db_sendmail: &db_sendmail
   database: ${DB_SENDMAIL}
 
-db_sms: &db_sms
-  database: ${DB_SMS}
 
-db_geoloc: &db_geoloc
-  database: ${DB_GEOLOC}
+
+
 
 db_test: &db_test
   database: ${DB_TEST}
@@ -58,17 +56,9 @@ tortoise:
       engine: 'tortoise.backends.asyncpg'
       credentials: *db_telegram
 
-    conn_geoloc:
-      engine: 'tortoise.backends.asyncpg'
-      credentials: *db_geoloc
-
     conn_sendmail:
       engine: 'tortoise.backends.asyncpg'
       credentials: *db_sendmail
-
-    conn_sms:
-      engine: 'tortoise.backends.asyncpg'
-      credentials: *db_sms
 
     conn_documents:
       engine: 'tortoise.backends.asyncpg'
@@ -100,20 +90,12 @@ tortoise:
         - 'svc_tenants.tenants.models'
       default_connection: 'conn_tenants'
 
-    geoloc:
-      models:
-        - 'svc_geoloc.geoloc.models'
-      default_connection: 'conn_geoloc'
-
     sendmail:
       models:
         - 'svc_sendmail.sendmail.models'
       default_connection: 'conn_sendmail'
 
-    sms:
-      models:
-        - 'svc_sms.sms.models'
-      default_connection: 'conn_sms'
+
 
     documents:
       models:

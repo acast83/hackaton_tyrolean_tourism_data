@@ -19,10 +19,6 @@ class TestTenantsInitializeLookup2Times(SetupBaseAuthorizedTest):
         ]
         super().setUp()
 
-    def test_init_already_initialized_lookup(self):
-        self.initialize_lookups()
-        pass
-
 
 class TestTenants(SetupBaseAuthorizedTest):
     def setUp(self):

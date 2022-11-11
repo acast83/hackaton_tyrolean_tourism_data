@@ -35,6 +35,12 @@
     }
   ],
   "user_groups": [
+    {
+      "id": "a64fc934-fcab-4385-ab67-92f82c805d20",
+      "code": "DEV"
+
+
+    }
   ],
   "org_units": [
   ],
