@@ -1,0 +1,54 @@
+{
+  "permissions": [
+    {
+      "id": "d7f4e51f-33f6-4921-a1b0-a93910e29332",
+      "code": "LOGIN",
+      "order": 1,
+      "translations": {
+        "en": "Login",
+        "sr": "Pristupiti",
+        "it": "Login",
+        "de": "Anmeldung"
+      }
+    }
+  ],
+  "roles": [
+    {
+      "id": "a64fc934-fcab-4385-ab67-92f82c805d19",
+      "code": "ADMIN",
+      "translations": {
+        "en": "Administrator",
+        "sr": "Administrator",
+        "it": "Amministratore",
+        "de": "Administrator"
+      },
+      "connections": {
+        "default_permissions": {
+          "lookup": "permissions",
+          "relation": "permissions",
+          "key": "code",
+          "list": [
+            "LOGIN"
+          ]
+        }
+      }
+    }
+  ],
+  "user_groups": [
+  ],
+  "org_units": [
+  ],
+  "prefered_language": [
+    {
+      "id": "0fdcf5ba-3250-4811-bf96-ec724dfdf5b4",
+      "code": "EN",
+      "order": 1,
+      "translations": {
+        "en": "English",
+        "sr": "Engleski",
+        "it": "English",
+        "de": "English"
+      }
+    }
+  ]
+}
