@@ -59,39 +59,6 @@
         "it": "Azione del sistema",
         "de": "Systemaktion"
       }
-    },
-    {
-      "id": "6999e6a5-9773-4288-86bb-22afff726f2b",
-      "code": "FLOW_TYPE_GIT_ACTION",
-      "order": 1,
-      "translations": {
-        "en": "GIT Action",
-        "sr": "Akcija na GIT-u",
-        "it": "Azione del GIT",
-        "de": "GIT-Aktion"
-      }
-    },
-    {
-      "id": "a8d2f945-7f86-4beb-a64c-699178115d33",
-      "code": "FLOW_TYPE_EMAIL_ACTION",
-      "order": 1,
-      "translations": {
-        "en": "Email Action",
-        "sr": "Email Akcija",
-        "it": "Azione del Email",
-        "de": "Email-Aktion"
-      }
-    },
-    {
-      "id": "103a3c22-db38-421c-9d14-cb1ed6bb6d23",
-      "code": "FLOW_EXTERNAL_IMPRESA_ACTION",
-      "order": 1,
-      "translations": {
-        "en": "External Impresa Action",
-        "sr": "External Impresa Action",
-        "it": "External Impresa Action",
-        "de": "External Impresa Action"
-      }
     }
   ]
 }
