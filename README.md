@@ -10,6 +10,10 @@
 ### steps:
 
  - checkout complete code from repo
+```
+git clone git@github.com:acast83/hackaton.git
+```
+
  - follow steps for each part of project (backend / webapp / mobile) written in this file
 
 #### Backend
