@@ -145,7 +145,8 @@ class User(Model, base_models.BaseModel):
 
     async def mk_cache(self, handler):
 
-        async with in_transaction('conn_tenants'):
+        # async with in_transaction('conn_tenants'):
+        if True:
             display_name = ' '.join([n.strip().capitalize() for n in [self.first_name, self.last_name] if n])
             if not display_name:
                 display_name = self.username if self.username else ''
@@ -163,7 +164,10 @@ class User(Model, base_models.BaseModel):
             }
 
             commit = False
-            cache = await C11Users.filter(user=self).get_or_none()
+            try:
+                cache = await C11Users.filter(user=self).get_or_none()
+            except Exception as e:
+                raise
             if not cache:
                 commit = True
                 cache = C11Users(user=self)

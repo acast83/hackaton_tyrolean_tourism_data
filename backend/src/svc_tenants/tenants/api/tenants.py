@@ -85,7 +85,8 @@ async def create_user(handler, force_tenant=None):
         body['uid'] = await models.User.gen_uid(handler.id_tenant)
 
     try:
-        async with in_transaction(connection_name=db_connection):
+        # async with in_transaction(connection_name=db_connection):
+        if True:
 
             handler.log.debug('-' * 100)
             handler.log.debug('creating user')

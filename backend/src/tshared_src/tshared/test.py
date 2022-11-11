@@ -139,50 +139,17 @@ class SetupBaseAuthorizedTest(SetUpTest):
 
         for x in user_list:
 
-            user_groups = []
-            if 'department_groups' in x:
-                user_groups += [self.tenants_lookup_user_groups_departments[g]['id'] for g in x['department_groups']]
-                del x['department_groups']
-
-            if 'vacation_groups' in x:
-                user_groups += [self.tenants_lookup_user_groups_vacation[g]['id'] for g in x['vacation_groups']]
-                del x['vacation_groups']
-
-            if 'wiki_groups' in x:
-                user_groups += [self.tenants_lookup_user_groups_wiki[g]['id'] for g in x['wiki_groups']]
-                del x['wiki_groups']
-
-            x['user_groups'] = user_groups
-
             user = self.api(self.token, 'POST', f'/tenants/{self.id_tenant}/users', x,
                             expected_code=http.status.CREATED)
 
             self.users[x['username']] = {'id': user['id'], 'token': user['token']}
 
     def register_initial_users(self):
-        return self.register_testing_users(user_list=
-        [
-            {'username': 'aca', 'password': '123', 'first_name': 'Aleksandar', 'last_name': 'Stojkovic',
-             "vacation_groups": ['ORTHODOX'],
-             "department_groups": ['DEV'], 'wiki_groups': ['DEV']},
-            {'username': 'mikhail', 'password': '123', 'first_name': 'Mikhail', 'last_name': 'Zotochev',
-             "vacation_groups": ['ORTHODOX'],
-             "department_groups": ['DEV'], 'wiki_groups': ['DEV']},
-            {'username': 'ivo', 'password': '123', 'first_name': 'Ivo', 'last_name': 'Kovacevic',
-             "vacation_groups": ['ORTHODOX'],
-             "department_groups": ['DEV', 'PD', 'SUP'], 'wiki_groups': ['SALES', 'SUP']},
-            {'username': 'slobodan', 'password': '123', 'first_name': 'Slobodan', 'last_name': 'Dolinic',
-             "vacation_groups": ['ORTHODOX'],
-             "department_groups": ['DEV', 'PD', 'SUP']},
-            {'username': 'igor', 'password': '123', 'first_name': 'Igor', 'last_name': 'Jeremic',
-             "vacation_groups": ['ORTHODOX'],
-             "department_groups": ['DEV', 'PD', 'SUP'], 'wiki_groups': ['SALES']},
-            {'username': 'fabio', 'password': '123', 'first_name': 'Fabio', 'last_name': 'Panaioli',
-             "vacation_groups": ['CATHOLIC'],
-             "department_groups": ['DEV', 'QA'], 'wiki_groups': ['SUP']},
-            {'username': 'mustafa', 'password': '123', 'first_name': 'Mustafa', 'last_name': 'Redžepović',
-             "vacation_groups": ['MUSLIM'],
-             "department_groups": ['QA'], 'wiki_groups': ['SALES']},
+        return self.register_testing_users(user_list=[
+            {'username': 'aca', 'password': '123', 'first_name': 'Aleksandar', 'last_name': 'Stojkovic'},
+            {'username': 'bane', 'password': '123', 'first_name': 'Branislav', 'last_name': 'Cavic'},
+            {'username': 'tina', 'password': '123', 'first_name': 'Tina', 'last_name': 'Popovic'},
+            {'username': 'mitar', 'password': '123', 'first_name': 'Mitar', 'last_name': 'Spasic'},
         ])
 
     def create_master_user_single_tenant_and_tenant_system_user(self, tenant_code=None):
@@ -192,12 +159,8 @@ class SetupBaseAuthorizedTest(SetUpTest):
 
         self.master_token = self.last_result['token']
 
-        if not tenant_code:
-            tenant_code = 'DCUBE'
-            self.tenant_name = "dcube"
-
-        else:
-            self.tenant_name = tenant_code.lower()
+        tenant_code = 'DCUBE'
+        self.tenant_name = "dcube"
 
         self.api(self.master_token, 'POST', '/tenants/', {'code': tenant_code, 'name': self.tenant_name})
         self.id_tenant = self.last_result['id']

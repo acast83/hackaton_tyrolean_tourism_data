@@ -36,25 +36,19 @@
   ],
   "user_groups": [
     {
-      "id": "a64fc934-fcab-4385-ab67-92f82c805d20",
-      "code": "DEV"
-
-
+      "code": "DEV",
+      "group_code": "DEPARTMENTS"
+    },
+    {
+      "code": "ORTHODOX",
+      "group_code": "VACATION"
     }
   ],
   "org_units": [
   ],
   "prefered_language": [
     {
-      "id": "0fdcf5ba-3250-4811-bf96-ec724dfdf5b4",
-      "code": "EN",
-      "order": 1,
-      "translations": {
-        "en": "English",
-        "sr": "Engleski",
-        "it": "English",
-        "de": "English"
-      }
+      "code": "EN"
     }
   ]
 }

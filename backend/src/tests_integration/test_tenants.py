@@ -151,12 +151,6 @@ class TestUsers(SetupBaseAuthorizedTest):
         self.api(None, 'GET', f'/tenants/code/DCUBE', expected_code=http.status.OK,
                  expected_result={'id': self.id_tenant})
 
-    def test_search_function(self):
-        self.api(self.token, 'GET', f'/tenants/users?search=alek&no_paginate=true')
-        self.assertEqual(self.last_result[0]["first_name"], "Aleksandar")
-        self.api(self.token, 'GET', f'/tenants/users?search=mi&no_paginate=true')
-        self.assertEqual([u["username"] for u in self.last_result], ["igor", "mikhail"])
-
     def test_force_users(self):
         for i in range(1, 100):
             self.register_testing_users([{'username': f'user{i}'}])
@@ -166,97 +160,9 @@ class TestUsers(SetupBaseAuthorizedTest):
         ids_csv = f"{user_70_id},{user_80_id},{user_90_id}"
         self.api(self.token, 'GET', f'/tenants/users?ids_csv={ids_csv}')
 
-    def test(self):
-        self.api(self.token, 'GET', f'/tenants/users?fields=username,first_name,last_name&no_paginate=true',
-                 expected_result=[{'first_name': 'Aleksandar', 'last_name': 'Stojkovic', 'username': 'aca'},
-                                  {'first_name': 'Fabio', 'last_name': 'Panaioli', 'username': 'fabio'},
-                                  {'first_name': 'Igor', 'last_name': 'Jeremic', 'username': 'igor'},
-                                  {'first_name': 'Ivo', 'last_name': 'Kovacevic', 'username': 'ivo'},
-                                  {'first_name': 'Mikhail', 'last_name': 'Zotochev', 'username': 'mikhail'},
-                                  {'first_name': 'Mustafa', 'last_name': 'Redžepović', 'username': 'mustafa'},
-                                  {'first_name': 'Slobodan', 'last_name': 'Dolinic', 'username': 'slobodan'},
-                                  {'first_name': 'System', 'last_name': 'User', 'username': 'system'}])
-
-    def test_get_users_orderd_by_display_name(self):
-        self.api(self.token, 'GET',
-                 f'/tenants/users?fields=username,first_name,last_name&order_by=display_name&no_paginate=true',
-                 expected_result=[{'first_name': 'Aleksandar', 'last_name': 'Stojkovic', 'username': 'aca'},
-                                  {'first_name': 'Fabio', 'last_name': 'Panaioli', 'username': 'fabio'},
-                                  {'first_name': 'Igor', 'last_name': 'Jeremic', 'username': 'igor'},
-                                  {'first_name': 'Ivo', 'last_name': 'Kovacevic', 'username': 'ivo'},
-                                  {'first_name': 'Mikhail', 'last_name': 'Zotochev', 'username': 'mikhail'},
-                                  {'first_name': 'Mustafa', 'last_name': 'Redžepović', 'username': 'mustafa'},
-                                  {'first_name': 'Slobodan', 'last_name': 'Dolinic', 'username': 'slobodan'},
-                                  {'first_name': 'System', 'last_name': 'User', 'username': 'system'}])
-
-        self.api(self.token, 'POST', f'/tenants/{self.id_tenant}/users?no_paginate=true',
-                 body={'username': 'ivan', 'password': '123', 'first_name': 'ivan', 'last_name': 'ivanovic'},
-                 expected_code=http.status.CREATED)
-
-        self.api(self.token, 'GET',
-                 f'/tenants/users?fields=username,first_name,last_name&order_by=display_name&no_paginate=true',
-                 expected_result=[{'first_name': 'Aleksandar', 'last_name': 'Stojkovic', 'username': 'aca'},
-                                  {'first_name': 'Fabio', 'last_name': 'Panaioli', 'username': 'fabio'},
-                                  {'first_name': 'Igor', 'last_name': 'Jeremic', 'username': 'igor'},
-                                  {'first_name': 'Ivan', 'last_name': 'Ivanovic', 'username': 'ivan'},
-                                  {'first_name': 'Ivo', 'last_name': 'Kovacevic', 'username': 'ivo'},
-                                  {'first_name': 'Mikhail', 'last_name': 'Zotochev', 'username': 'mikhail'},
-                                  {'first_name': 'Mustafa', 'last_name': 'Redžepović', 'username': 'mustafa'},
-                                  {'first_name': 'Slobodan', 'last_name': 'Dolinic', 'username': 'slobodan'},
-                                  {'first_name': 'System', 'last_name': 'User', 'username': 'system'}])
-
-    def test_update_user(self):
-        users = self.api(self.token, 'GET', f'/tenants/users?fields=id,username,first_name,last_name&no_paginate=true')
-
-        from functools import reduce
-        user_id = reduce(lambda x, y: x if x['username'] == 'mikhail' else y, users)['id']
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        self.api(self.token, 'PATCH', f'/tenants/users/{user_id}', body={'first_name': 'spam'})
-        print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-
-        self.api(self.token, 'GET', f'/tenants/users/{user_id}?fields=username,first_name',
-                 expected_result={"username": "mikhail", "first_name": "Spam"}
-                 )
-
-    def test_get_all_users_by_group(self):
-
-        params = urllib.parse.urlencode({
-            'fields': 'username',
-            'no_paginate': 'true',
-            'filters': json.dumps({'groups__in': [self.tenants_lookup_user_groups_vacation['ORTHODOX']['id']]})})
-
-        self.api(self.token, 'GET', f'/tenants/users?' + params, expected_code=http.status.OK,
-                 expected_result=[{"username": "aca"}, {"username": "igor"}, {"username": "ivo"},
-                                  {'username': 'mikhail'}, {"username": "slobodan"}])
-
-        params = urllib.parse.urlencode({
-            'fields': 'username',
-            'no_paginate': 'true',
-            'filters': json.dumps({'groups__in': [self.tenants_lookup_user_groups_vacation['CATHOLIC']['id']]})})
-
-        self.api(self.token, 'GET', f'/tenants/users?' + params, expected_code=http.status.OK,
-                 expected_result=[{"username": "fabio"}])
-
-        params = urllib.parse.urlencode({
-            'fields': 'username',
-            'no_paginate': 'true',
-
-            'filters': json.dumps({'groups__in': [self.tenants_lookup_user_groups_vacation['MUSLIM']['id']]})})
-
-        self.api(self.token, 'GET', f'/tenants/users?' + params, expected_code=http.status.OK,
-                 expected_result=[{"username": "mustafa"}])
-
     def test_get_users_ordered_by_last_name(self):
         self.api(self.token, 'GET',
                  f'/tenants/users?fields=username,first_name,last_name&order_by=last_name&no_paginate=true',
-                 expected_result=[{'first_name': 'Slobodan', 'last_name': 'Dolinic', 'username': 'slobodan'},
-                                  {'first_name': 'Igor', 'last_name': 'Jeremic', 'username': 'igor'},
-                                  {'first_name': 'Ivo', 'last_name': 'Kovacevic', 'username': 'ivo'},
-                                  {'first_name': 'Fabio', 'last_name': 'Panaioli', 'username': 'fabio'},
-                                  {'first_name': 'Mustafa', 'last_name': 'Redžepović', 'username': 'mustafa'},
-                                  {'first_name': 'Aleksandar', 'last_name': 'Stojkovic', 'username': 'aca'},
-                                  {'first_name': 'System', 'last_name': 'User', 'username': 'system'},
-                                  {'first_name': 'Mikhail', 'last_name': 'Zotochev', 'username': 'mikhail'}]
                  )
 
     def test_search_tenant(self):
@@ -273,14 +179,6 @@ class TestUsers(SetupBaseAuthorizedTest):
 
     def test_get_registration(self):
         self.api(None, 'GET', f'/tenants/{self.id_tenant}/users/register')
-
-    # def test_wip_pydantic(self):
-    #     self.api(None, 'GET', f'/tenants/pydantic_test')
-    #     #
-    #
-    # def test_wip(self):
-    #     self.api(self.token, 'GET', f'/tenants/wip-fts')
-    #     #
 
 
 if __name__ == '__main__':
